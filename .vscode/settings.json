@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "chicken.sln"
+    "dotnet.defaultSolution": "Fried-Chicken.sln"
 }
