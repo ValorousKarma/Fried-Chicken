@@ -1496,7 +1496,10 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 --- !u!95 &864833093
 Animator:
   serializedVersion: 5
@@ -1601,6 +1604,9 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!4 &1871557899
 Transform:
@@ -1713,10 +1719,16 @@ SceneRoots:
   - {fileID: 519717245}
   - {fileID: 1871557899}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
   - {fileID: 1912110334}
   - {fileID: 864833095}
 =======
 >>>>>>> b84949a54678055faa4e218fd26672f6dac98593
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
