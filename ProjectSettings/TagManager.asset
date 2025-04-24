@@ -44,6 +44,3 @@ TagManager:
   - name: Player
     uniqueID: 1305777417
     locked: 0
-  - name: Chicken
-    uniqueID: 198551553
-    locked: 0
