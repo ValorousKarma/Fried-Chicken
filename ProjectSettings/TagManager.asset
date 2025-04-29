@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Terrain Colliders
   - 
   - 
   - 
@@ -40,6 +40,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: background
+    uniqueID: 574265493
+    locked: 0
+  - name: foreground
+    uniqueID: 893137835
     locked: 0
   - name: Player
     uniqueID: 1305777417
