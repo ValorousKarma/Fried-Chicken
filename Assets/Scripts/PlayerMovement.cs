@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     public bool variableJump = true;
     public float jumpCutMultiplier = 0.5f;
 
+    [Header("Jump Buffering")]
+    public float jumpBufferTime = 0.1f;
+    private float jumpBufferCounter;
 
     [Header("Ground Check")]
     public LayerMask groundLayer;
@@ -34,14 +37,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Handle horizontal movement
+        // Handle horizontal input
         moveInput = Input.GetAxisRaw("Horizontal");
-        
-        // handle jump input
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+
+        // face direction of input
+        if (moveInput != 0)
+            transform.localScale = new Vector2(moveInput * Mathf.Abs(transform.localScale.x), 1 * transform.localScale.y);
+
+        // Jump buffer: store time since jump was pressed
+        if (Input.GetButtonDown("Jump"))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            isJumping = true;
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
         }
 
         // cut jump when button released early
@@ -58,6 +68,13 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         isGrounded = IsGrounded();
+
+        if (isGrounded && jumpBufferCounter > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            isJumping = true;
+            jumpBufferCounter = 0f;  // Reset the buffer
+        }
 
         float targetSpeed = moveInput * moveSpeed;
         float speedDiff = targetSpeed - rb.velocity.x;
@@ -89,8 +106,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, 0.9f) * Mathf.Sign(speedDiff);
-        rb.AddForce(Vector2.right * movement);
+        float desiredVelocityX = moveInput * moveSpeed;
+        float smoothedX = Mathf.MoveTowards(rb.velocity.x, desiredVelocityX, accelRate * Time.fixedDeltaTime);
+        rb.velocity = new Vector2(smoothedX, rb.velocity.y);
     }
 
     private bool IsGrounded()
