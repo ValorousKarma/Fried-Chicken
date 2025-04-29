@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Misc")]
+    protected Animator anim;
     [Header("Movement")]
     public float moveSpeed = 8f;
     public float acceleration = 20f;
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -63,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
             }
             isJumping = false;
         }
+
+        HandleAnimator();
     }
 
     private void FixedUpdate()
@@ -126,5 +131,15 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
+    }
+
+    /*
+     * Update animator parameters with player state in order to trigger correct animations
+     */
+    protected void HandleAnimator()
+    {
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetBool("isJumping", isJumping);
+        anim.SetFloat("speed", Mathf.Abs(rb.velocity.x));
     }
 }
