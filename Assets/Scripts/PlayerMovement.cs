@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Attackable
 {
     [Header("Misc")]
-    protected Animator anim;
     [Header("Movement")]
     public float moveSpeed = 8f;
     public float acceleration = 20f;
@@ -32,14 +31,16 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool isJumping;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         // Handle horizontal input
         moveInput = Input.GetAxisRaw("Horizontal");
 
@@ -119,6 +120,16 @@ public class PlayerMovement : MonoBehaviour
         float desiredVelocityX = moveInput * moveSpeed;
         float smoothedX = Mathf.MoveTowards(rb.velocity.x, desiredVelocityX, accelRate * Time.fixedDeltaTime);
         rb.velocity = new Vector2(smoothedX, rb.velocity.y);
+
+        // incorporate knockback from attacks into current velocity
+        if (pushDirection.magnitude > 0.1f)
+        {
+            rb.velocity += pushDirection;
+
+            pushDirection = Vector2.Lerp(pushDirection, Vector2.zero, pushRecoverySpeed);
+        }
+        else
+            pushDirection = Vector2.zero;
     }
 
     private bool IsGrounded()

@@ -288,6 +288,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 507cc598ff9b1214a84b9d4c945b36ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitpoint: 10
+  maxHitpoint: 10
+  pushRecoverySpeed: 0.2
+  immuneTime: 1
+  anim: {fileID: 767845533}
+  knockbackMultiplier: 5
   moveSpeed: 10
   acceleration: 80
   deceleration: 150
@@ -593,7 +599,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -1063,7 +1069,7 @@ GameObject:
   - component: {fileID: 1557057852}
   m_Layer: 8
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

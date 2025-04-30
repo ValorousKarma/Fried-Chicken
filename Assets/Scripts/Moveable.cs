@@ -21,8 +21,9 @@ public abstract class Moveable : Attackable
     public float gravityMultiplier = 3f;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponent<BoxCollider2D>();
     }
