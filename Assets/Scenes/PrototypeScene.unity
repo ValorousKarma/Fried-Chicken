@@ -467,6 +467,8 @@ MonoBehaviour:
   acceleration: 80
   deceleration: 150
   airControl: 0.8
+  dashSpeed: 28
+  dashCooldown: 0.25
   jumpForce: 20
   variableJump: 1
   jumpCutMultiplier: 0.5
@@ -621,6 +623,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   objCollider: {fileID: 1078822318}
+  attackHitbox: {fileID: 0}
   ATTACK_LENGTH: 0.267
   excludeNameFromDamage: Player
   attackCooldown: 0.35
