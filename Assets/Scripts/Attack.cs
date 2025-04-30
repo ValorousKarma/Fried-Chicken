@@ -6,8 +6,9 @@ public class Attack : Collidable
 {
     private Animator anim;
     private PolygonCollider2D attackHitbox;
-    private float ATTACK_LENGTH = 0.267f;
+    public float ATTACK_LENGTH = 0.267f;
     private float lastHit = 0f;
+    public string excludeNameFromDamage;
 
     [Header("Timing")]
     public float attackCooldown = 0.5f;
@@ -26,31 +27,31 @@ public class Attack : Collidable
     // Update is called once per frame
     protected override void Update()
     {
-        // inherit collision itteration from parent
+        // inherit collision iteration from parent
         base.Update();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Time.time - lastHit > ATTACK_LENGTH)
         {
-            if (Time.time - lastHit > attackCooldown)
-            {
-                attackHitbox.enabled = true;
-                lastHit = Time.time;
-                anim.SetTrigger("attack");
-            }
-        } else {
-            if (Time.time - lastHit > ATTACK_LENGTH)
-            {
-                attackHitbox.enabled = false;
-            }
+            attackHitbox.enabled = false;
+        }
+    }
+
+    public void PerformAttack()
+    {
+        if (Time.time - lastHit > attackCooldown)
+        {
+            attackHitbox.enabled = true;
+            lastHit = Time.time;
+            anim.SetTrigger("attack");
         }
     }
 
     protected override void OnCollide(Collider2D coll)
     {
         base.OnCollide(coll);
-        if (coll.tag == "Damageable")
+        if (coll.tag == "Damageable" || coll.tag == "Player")
         {
-            if (coll.name != "Player")
+            if (coll.name != excludeNameFromDamage)
             {
                 Damage dmg = new Damage
                 {
