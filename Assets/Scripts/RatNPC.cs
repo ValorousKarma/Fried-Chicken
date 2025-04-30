@@ -59,16 +59,18 @@ public class RatNPC : MoveableNPC
             moveDir = (playerTransform.position - this.transform.position).normalized;
         }
 
+        UpdateMotor(moveDir);
+
         /*
          * When close enough to player, attack until 
          * player is too far to hit
          */
         if (state.attacking)
         {
-            moveDir = Vector2.zero;
             if (Time.time - lastHit > attackCooldown)
             {
                 attack.PerformAttack();
+                anim.SetTrigger("attack");
                 lastHit = Time.time;
             }
         }
@@ -83,8 +85,6 @@ public class RatNPC : MoveableNPC
                 xSpeed = idleSpeed;
             }
         }
-
-        UpdateMotor(moveDir);
     }
 
     protected override void ReturnToStart()

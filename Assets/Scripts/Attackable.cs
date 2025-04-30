@@ -24,6 +24,11 @@ public class Attackable : MonoBehaviour
 
     protected Vector2 pushDirection;
 
+    protected virtual void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     protected virtual void Update()
     {
         // handle invincibility state

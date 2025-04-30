@@ -56,7 +56,11 @@ public abstract class Moveable : Attackable
         moveDelta.y = inp.y * ySpeed + verticalVelocity;
 
         // Add push vector
-        moveDelta += new Vector2(pushDirection.magnitude, 0);
+        int direction = 1;
+        if (pushDirection.x < 0)
+            direction = -1;
+
+        moveDelta += new Vector2(direction * pushDirection.magnitude, 0);
         pushDirection = Vector2.Lerp(pushDirection, Vector2.zero, pushRecoverySpeed);
 
         // Final movement
