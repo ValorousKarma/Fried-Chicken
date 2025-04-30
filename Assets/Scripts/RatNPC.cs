@@ -52,6 +52,11 @@ public class RatNPC : MoveableNPC
          */
         if (state.idleing)
         {
+            if (anim)
+            {
+                anim.SetBool("idle", true);
+                anim.SetBool("chasing", false);
+            }
             // handle walking left & turning right
             if (idleWalkLeft)
             {
@@ -74,6 +79,8 @@ public class RatNPC : MoveableNPC
          */
         if (state.chasing)
         {
+            anim.SetBool("idle", false);
+            anim.SetBool("chasing", true);
             moveDir = (playerTransform.position - this.transform.position).normalized;
         }
 

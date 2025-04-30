@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attack : Collidable
 {
     private Animator anim;
-    private PolygonCollider2D attackHitbox;
+    public PolygonCollider2D attackHitbox;
     public float ATTACK_LENGTH = 0.267f;
     private float lastHit = 0f;
     public string excludeNameFromDamage;
