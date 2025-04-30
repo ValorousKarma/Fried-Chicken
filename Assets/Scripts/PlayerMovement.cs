@@ -28,6 +28,7 @@ public class PlayerMovement : Attackable
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
 
+    private BoxCollider2D hitbox;
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
@@ -46,6 +47,7 @@ public class PlayerMovement : Attackable
         base.Start();
         facing = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
+        hitbox = GetComponentInChildren<BoxCollider2D>();
     }
 
     protected override void Update()
@@ -95,10 +97,14 @@ public class PlayerMovement : Attackable
             isJumping = false;
         }
 
-        if (Input.GetButtonDown("Dash") && ((Time.fixedTime - lastDash) > dashCooldown))
+        /* ===== DASH ON KEYPRESS IF =====
+         * Dash is unlocked & time since last dash > cooldown
+         */
+        if (GameState.Instance.dash && Input.GetButtonDown("Dash") && ((Time.fixedTime - lastDash) > dashCooldown))
         {
             GetComponentInChildren<Attack>().attackHitbox.enabled = false;
             lastDash = Time.fixedTime;
+            hitbox.tag = "Untagged";
             StartCoroutine(PerformDash());
         }
 
@@ -191,17 +197,19 @@ public class PlayerMovement : Attackable
         anim.SetFloat("speed", Mathf.Abs(rb.velocity.x));
     }
 
+    /*
+     * ===== PERFORM A DASH =====
+     */
     private IEnumerator PerformDash()
     {
         isDashing = true;
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
-
         rb.velocity = new Vector2(facing.normalized.x * dashSpeed, 0);
-
         yield return new WaitForSeconds(dashDuration);
 
         rb.gravityScale = originalGravity;
         isDashing = false;
+        hitbox.tag = "Player";
     }
 }

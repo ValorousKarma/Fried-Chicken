@@ -21,21 +21,14 @@ public class GameState : MonoBehaviour
     /*
      * Unlocked character upgrades
      */
-    public struct Upgrades 
-    {
-        public bool dash;
-        public bool doubleJump;
-    }
+    public bool dash;
+    public bool doubleJump;
 
-    // save respawn point (scene #, respawn point name)
-    public struct RespawnPoint
-    {
-        public string sceneName;
-        public string savePointName;
-    }
-
-    Upgrades upgrades;
-    RespawnPoint respawnPoint;
+    /*
+     * save respawn point (scene #, respawn point name)
+     */
+    public string sceneName;
+    public string savePointName;
 
     /*
      *  Called when script is loaded
@@ -64,19 +57,19 @@ public class GameState : MonoBehaviour
     public void SaveState()
     {
         PlayerPrefs.SetInt("currency", currency);
-        PlayerPrefs.SetInt("dash", upgrades.dash ? 1 : 0);
-        PlayerPrefs.SetInt("doubleJump", upgrades.doubleJump ? 1 : 0);
-        PlayerPrefs.SetString("sceneName", respawnPoint.sceneName);
-        PlayerPrefs.SetString("savePointName", respawnPoint.savePointName);
+        PlayerPrefs.SetInt("dash", dash ? 1 : 0);
+        PlayerPrefs.SetInt("doubleJump", doubleJump ? 1 : 0);
+        PlayerPrefs.SetString("sceneName", sceneName);
+        PlayerPrefs.SetString("savePointName", savePointName);
     }
 
     public void LoadState()
     {
         currency = PlayerPrefs.GetInt("currency", 0);
-        upgrades.dash = PlayerPrefs.GetInt("dash", 0) == 1;
-        upgrades.doubleJump = PlayerPrefs.GetInt("doubleJump", 0) == 1;
-        respawnPoint.sceneName = PlayerPrefs.GetString("sceneName", "Level1");
-        respawnPoint.savePointName = PlayerPrefs.GetString("savePointName", "");
+        dash = PlayerPrefs.GetInt("dash", 0) == 1;
+        doubleJump = PlayerPrefs.GetInt("doubleJump", 0) == 1;
+        sceneName = PlayerPrefs.GetString("sceneName", "Level1");
+        savePointName = PlayerPrefs.GetString("savePointName", "");
     }
 
     /*
@@ -94,36 +87,36 @@ public class GameState : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        SceneManager.LoadScene(respawnPoint.sceneName);
+        SceneManager.LoadScene(sceneName);
         // After scene loads, place player at `savePointName` location
     }
 
 
     // ===== SETTER FUNCTIONS =====
-    public void unlockDash()
+    public void UnlockDash()
     {
-        upgrades.dash = true;
+        dash = true;
         PlayerPrefs.SetInt("dash", 1);
     }
 
-    public void unlockDoubleJump()
+    public void UnlockDoubleJump()
     {
-        upgrades.doubleJump = true;
+        doubleJump = true;
         PlayerPrefs.SetInt("doubleJump", 1);
     }
 
-    public void setRespawnPoint(string savePointName = "none")
+    public void SetRespawnPoint(string savePointName = "none")
     {
         // set respawn point scene locally & persistently
         PlayerPrefs.SetString("sceneName", SceneManager.GetActiveScene().name);
-        respawnPoint.sceneName = SceneManager.GetActiveScene().name;
+        sceneName = SceneManager.GetActiveScene().name;
 
         // set respawn point position locally & persistently
         PlayerPrefs.SetString("savePointName", savePointName);
-        respawnPoint.savePointName = savePointName;
+        this.savePointName = savePointName;
     }
 
-    public void addCurrency(int amt)
+    public void AddCurrency(int amt)
     {
         currency += amt;
         PlayerPrefs.SetInt("currency", currency);
