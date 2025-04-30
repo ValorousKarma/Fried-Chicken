@@ -16,10 +16,18 @@ public class Attackable : MonoBehaviour
     [Header("Damage Animations")]
     public Animator anim;
 
+    [Header("Physics")]
+    public float knockbackMultiplier = 5f;
+
     protected float lastImmune;
     protected bool invincible = false;
 
     protected Vector2 pushDirection;
+
+    protected virtual void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     protected virtual void Update()
     {
@@ -42,7 +50,7 @@ public class Attackable : MonoBehaviour
         {
             lastImmune = Time.time;
             hitpoint -= dmg.dmg;
-            pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce;
+            pushDirection = (transform.position - dmg.origin).normalized * dmg.pushForce * knockbackMultiplier;
 
             if (hitpoint <= 0)
             {

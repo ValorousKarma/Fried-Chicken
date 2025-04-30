@@ -43,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
         // Handle horizontal input
         moveInput = Input.GetAxisRaw("Horizontal");
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            GetComponent<Attack>().PerformAttack();
+        }
+
         // face direction of input
         if (moveInput != 0)
             transform.localScale = new Vector2(moveInput * Mathf.Abs(transform.localScale.x), 1 * transform.localScale.y);

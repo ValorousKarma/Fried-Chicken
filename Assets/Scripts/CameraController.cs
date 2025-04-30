@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 
     public float boundX = 0.3f;
 
-    private void LateUpdate()
+    private void Update()
     {
         Vector3 delta = Vector3.zero;
 
