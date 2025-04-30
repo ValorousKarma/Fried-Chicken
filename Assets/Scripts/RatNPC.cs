@@ -23,6 +23,24 @@ public class RatNPC : MoveableNPC
         attack = GetComponent<Attack>();
     }
 
+    protected override void Update()
+    {
+        base.Update();
+
+        /*
+         * When close enough to player, attack until 
+         * player is too far to hit
+         */
+        if (state.attacking)
+        {
+            if (Time.time - lastHit > attackCooldown)
+            {
+                attack.PerformAttack();
+                anim.SetTrigger("attack");
+                lastHit = Time.time;
+            }
+        }
+    }
 
     protected void FixedUpdate()
     {
@@ -59,21 +77,16 @@ public class RatNPC : MoveableNPC
             moveDir = (playerTransform.position - this.transform.position).normalized;
         }
 
-        UpdateMotor(moveDir);
-
         /*
-         * When close enough to player, attack until 
-         * player is too far to hit
+         * When attacking the player don't keep chasing
          */
         if (state.attacking)
         {
-            if (Time.time - lastHit > attackCooldown)
-            {
-                attack.PerformAttack();
-                anim.SetTrigger("attack");
-                lastHit = Time.time;
-            }
+            moveDir = Vector2.zero;
         }
+
+        UpdateMotor(moveDir);
+
         // while not chasing or idleing, try to return to starting position
         if (!state.chasing && !state.idleing)
         {

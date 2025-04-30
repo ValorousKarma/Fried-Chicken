@@ -49,7 +49,7 @@ public class Attack : Collidable
     protected override void OnCollide(Collider2D coll)
     {
         base.OnCollide(coll);
-        if (coll.tag == "Damageable" || coll.tag == "Player")
+        if (coll.tag == "Damageable")
         {
             if (coll.name != excludeNameFromDamage)
             {
@@ -61,6 +61,19 @@ public class Attack : Collidable
                 };
 
                 coll.SendMessage("ReceiveDamage", dmg);
+            }
+        } else if (coll.tag == "Player")
+        {
+            if (coll.name != excludeNameFromDamage)
+            {
+                Damage dmg = new Damage
+                {
+                    dmg = attackDamage,
+                    origin = transform.position,
+                    pushForce = pushForce,
+                };
+
+                coll.GetComponentInParent<Attackable>().SendMessage("ReceiveDamage", dmg);
             }
         }
     }
