@@ -33,11 +33,13 @@ public class PlayerMovement : Attackable
     private float moveInput;
     private bool isGrounded;
     private bool isJumping;
+    private int doubleJumpCounter;
     
     private bool isDashing;
     private Vector2 facing;
     private float lastDash = 0;
     private float dashDuration = 0.25f;
+    private bool canDash = true;
 
     private float attackBufferCounter = 0f;
     private float attackBufferTime = 0.1f;
@@ -98,13 +100,14 @@ public class PlayerMovement : Attackable
         }
 
         /* ===== DASH ON KEYPRESS IF =====
-         * Dash is unlocked & time since last dash > cooldown
+         * Dash is unlocked & time since last dash > cooldown & canDash is true (prevent dashing multiple times mid-air)
          */
-        if (GameState.Instance.dash && Input.GetButtonDown("Dash") && ((Time.fixedTime - lastDash) > dashCooldown))
+        if (GameState.Instance.dash && Input.GetButtonDown("Dash") && ((Time.fixedTime - lastDash) > dashCooldown) && canDash)
         {
             GetComponentInChildren<Attack>().attackHitbox.enabled = false;
             lastDash = Time.fixedTime;
             hitbox.tag = "Untagged";
+            canDash = false;
             StartCoroutine(PerformDash());
         }
 
@@ -117,11 +120,29 @@ public class PlayerMovement : Attackable
         {
             isGrounded = IsGrounded();
 
-            if (isGrounded && jumpBufferCounter > 0f)
+            // reset dash ability when you hit the ground
+            if (!canDash && isGrounded)
+                canDash = true;
+
+
+            // handle jump logic
+            if ((doubleJumpCounter > 0 || isGrounded) && jumpBufferCounter > 0f)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 isJumping = true;
                 jumpBufferCounter = 0f;  // Reset the buffer
+
+                /*
+                 *  ===== IF DOUBLE JUMP UNLOCKED =====
+                 */
+
+                // if double jumping, reset doubleJumpCounter to 0
+                if (doubleJumpCounter > 0 && !isGrounded)
+                    doubleJumpCounter = 0;
+
+                // if jumping from ground, allow another double jump
+                if (isGrounded && GameState.Instance.doubleJump)
+                    doubleJumpCounter = 1;
             }
 
             float targetSpeed = moveInput * moveSpeed;
