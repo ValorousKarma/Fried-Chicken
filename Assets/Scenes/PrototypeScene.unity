@@ -851,7 +851,7 @@ MonoBehaviour:
   pushRecoverySpeed: 0.2
   immuneTime: 1
   anim: {fileID: 989244066}
-  knockbackMultiplier: 5
+  knockbackMultiplier: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -1431,6 +1431,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1770807134570530515, guid: 98a81319e110cb241b8e830a5c4663cb, type: 3}
+      propertyPath: knockbackMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2755151150303067662, guid: 98a81319e110cb241b8e830a5c4663cb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 14.821603
