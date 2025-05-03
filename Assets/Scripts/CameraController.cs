@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     public Transform lookAt;
 
     public float boundX = 0.3f;
+    public float boundY = 0.3f;
 
     private void Update()
     {
@@ -22,6 +23,19 @@ public class CameraController : MonoBehaviour
             } else
             {
                 delta.x = deltaX + boundX;
+            }
+        }
+
+        // check if inside y axis bounds
+        float deltaY = lookAt.position.y - transform.position.y;
+        if (deltaY > boundY || deltaY < -boundY)
+        {
+            if (transform.position.y < lookAt.position.y)
+            {
+                delta.y = deltaY - boundY;
+            } else
+            {
+                delta.y = deltaY + boundY;
             }
         }
 
