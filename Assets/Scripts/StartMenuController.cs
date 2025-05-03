@@ -23,12 +23,15 @@ public class StartMenuController : MonoBehaviour
     public void onSettingsClick()
     {
         // Load the settings scene
-        Debug.Log("Settings button clicked");
+        // 
+        SceneManager.LoadScene("SettingScene");
     }
 
     public void onContinueClick()
     {
         // Load the last saved game
+        // need to use game stat file to make sure the game is saved
+        // then load the last saved game
         Debug.Log("Continue button clicked");
     }
 }
