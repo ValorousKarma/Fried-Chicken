@@ -5,61 +5,60 @@ using UnityEngine;
 
 public class PauseMenuController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public static bool isPaused= false;
-    public GameObject PauseMenu;
+    public static bool isPaused = false;
+    public GameObject pauseMenuUI;
+
+    private static PauseMenuController instance;
+
     private void Awake()
     {
-        // Ensure the pause menu is not active at the start
-        DontDestroyOnLoad(PauseMenu);
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // This keeps the entire manager alive
+        }
+        else
+        {
+            Destroy(gameObject); // Avoid duplicates across scenes
+        }
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-           if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
-            
+            if (isPaused) Resume();
+            else Pause();
         }
-        
     }
-    void Pause()
+
+    public void Pause()
     {
-        PauseMenu.SetActive(true);
+        pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
     }
+
     public void Resume()
     {
-        PauseMenu.SetActive(false);
+        pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
     }
+
     public void Settings()
     {
-        // Implement settings logic here
         Debug.Log("Settings Opened");
     }
 
     public void SaveGame()
     {
-        // Implement save game logic here
         Debug.Log("Game Saved");
     }
 
-    public void quitGame()
+    public void QuitGame()
     {
-        // Implement quit game logic here
         Debug.Log("Game Quit");
         Application.Quit();
     }
-
-   
 }
