@@ -1994,8 +1994,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1930467416}
   - component: {fileID: 1930467415}
-  - component: {fileID: 1930467414}
   - component: {fileID: 1930467413}
+  - component: {fileID: 1930467417}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Untagged
@@ -2038,18 +2038,6 @@ CircleCollider2D:
   m_Offset: {x: 0.01, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!114 &1930467414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930467412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a69e1ce3b4bf549bd88f40a194679f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1930467415
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2117,6 +2105,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1930467417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930467412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39b66443a33649d7a3ec26ce1625126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 10
 --- !u!1 &2022940272
 GameObject:
   m_ObjectHideFlags: 0
