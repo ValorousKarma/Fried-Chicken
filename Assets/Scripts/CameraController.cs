@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour
 {
     public Transform lookAt;
 
+    public float heightOffset;
+
     public float boundX = 0.3f;
     public float boundY = 0.3f;
 
@@ -39,6 +41,6 @@ public class CameraController : MonoBehaviour
             }
         }
 
-        transform.position += new Vector3(delta.x, delta.y, 0);
+        transform.position += new Vector3(delta.x, delta.y + heightOffset, 0);
     }
 }
