@@ -4760,6 +4760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAt: {fileID: 767845532}
   boundX: 0.3
+  boundY: 0.3
 --- !u!1 &2086272148
 GameObject:
   m_ObjectHideFlags: 0
