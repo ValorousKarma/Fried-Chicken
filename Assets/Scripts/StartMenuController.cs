@@ -13,7 +13,7 @@ public class StartMenuController : MonoBehaviour
     public void onStartClick()
     {
         // Load the game scene
-        SceneManager.LoadScene("TestScene");
+        SceneManager.LoadScene("Level_One_Forrest");
     }
     public void onQuitClick()
     {

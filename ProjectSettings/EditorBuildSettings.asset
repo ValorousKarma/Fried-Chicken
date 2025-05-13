@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: 2db6a875c33f64a00a6ec3688c366f9f
+  - enabled: 1
+    path: Assets/Scenes/Level_One_Forrest.unity
+    guid: 546a4ebe5ebd3554a9c34fabb76a8467
+  - enabled: 1
+    path: Assets/Scenes/Level_Two_Town.unity
+    guid: 8403c99c76e4ee1499c955f0b204ea47
+  - enabled: 1
+    path: Assets/Scenes/Level_Three_Cave.unity
+    guid: 0891109e75d85904da1afa49d71543ea
   m_configObjects: {}
