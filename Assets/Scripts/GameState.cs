@@ -30,6 +30,11 @@ public class GameState : MonoBehaviour
     public string sceneName;
     public string savePointName;
 
+    // remember what the last scene the player was in
+    private string previousSceneName;
+    private Vector3 levelTwoSecondarySpawn = new Vector3(57, -1.5f, 0);
+    private Vector3 levelOneSecondarySpawn = new Vector3(50, -0.45f, 0);
+
     /*
      *  Called when script is loaded
      */
@@ -61,6 +66,7 @@ public class GameState : MonoBehaviour
         PlayerPrefs.SetInt("doubleJump", doubleJump ? 1 : 0);
         PlayerPrefs.SetString("sceneName", sceneName);
         PlayerPrefs.SetString("savePointName", savePointName);
+        PlayerPrefs.SetString("previousSceneName", SceneManager.GetActiveScene().name);
     }
 
     public void LoadState()
@@ -68,8 +74,13 @@ public class GameState : MonoBehaviour
         currency = PlayerPrefs.GetInt("currency", 0);
         dash = PlayerPrefs.GetInt("dash", 0) == 1;
         doubleJump = PlayerPrefs.GetInt("doubleJump", 0) == 1;
-        sceneName = PlayerPrefs.GetString("sceneName", "Level1");
+
+        // for saving respawn point
+        sceneName = PlayerPrefs.GetString("sceneName", "StartScene");
         savePointName = PlayerPrefs.GetString("savePointName", "");
+
+        // for knowing what part of the scene to load player into
+        previousSceneName = PlayerPrefs.GetString("previousSceneName", "");
     }
 
     /*
@@ -77,7 +88,27 @@ public class GameState : MonoBehaviour
      */
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // handle scene setup
+        LoadState();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        // handle starting position for player based on where player enters level from
+        if (scene.name == "Level_Two_Town")
+        {
+            if (previousSceneName == "Level_Three_Cave")
+            {
+                player.transform.position = levelTwoSecondarySpawn;
+
+            }
+        }
+
+        if (scene.name == "Level_One_Forrest")
+        {
+            if (previousSceneName == "Level_Two_Town")
+            {
+                player.transform.position = levelOneSecondarySpawn;
+
+            }
+        }
+
     }
 
     private void OnApplicationQuit()
@@ -105,7 +136,7 @@ public class GameState : MonoBehaviour
         PlayerPrefs.SetInt("doubleJump", 1);
     }
 
-    public void SetRespawnPoint(string savePointName = "none")
+    public void SetRespawnPoint(string savePointName = "")
     {
         // set respawn point scene locally & persistently
         PlayerPrefs.SetString("sceneName", SceneManager.GetActiveScene().name);
@@ -120,5 +151,10 @@ public class GameState : MonoBehaviour
     {
         currency += amt;
         PlayerPrefs.SetInt("currency", currency);
+    }
+
+    public string GetPreviousScene()
+    {
+        return previousSceneName;
     }
 }
