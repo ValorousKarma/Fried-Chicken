@@ -13,7 +13,14 @@ public class CurrencyWeaponDisplay : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("CurrencyWeaponDisplay initializing");
         
+        if (GameState.Instance == null)
+        {
+            Debug.LogError("GameState instance is null!");
+            return;
+        }
+
         // Initialize displays
         UpdateCurrencyDisplay(GameState.Instance.currency);
         UpdateWeaponLevelDisplay(GameState.Instance.weaponLevel);
@@ -21,6 +28,9 @@ public class CurrencyWeaponDisplay : MonoBehaviour
         // Subscribe to events
         GameState.Instance.OnCurrencyChanged += UpdateCurrencyDisplay;
         GameState.Instance.OnWeaponLevelChanged += UpdateWeaponLevelDisplay;
+
+        Debug.Log($"Initial values - Currency: {GameState.Instance.currency}, Weapon Level: {GameState.Instance.weaponLevel}");
+
 
         
     }
