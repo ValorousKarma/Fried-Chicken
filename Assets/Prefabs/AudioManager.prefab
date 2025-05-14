@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1347432251682165241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5318634562624369254}
+  - component: {fileID: 1854702980380857375}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5318634562624369254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347432251682165241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.513875, y: 1.279415, z: -0.14790446}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1854702980380857375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347432251682165241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb9aabe85abf6408abb83fb3623c173b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: 01d80ecfebbf44c498794d50cdea246c, type: 3}
+  winMusic: {fileID: 8300000, guid: 500ee80edb02440c68a45f61f795f1d0, type: 3}
+  deathMusic: {fileID: 8300000, guid: 6ef892d50635944dc94eedde0af5ae6e, type: 3}
+  pauseSound: {fileID: 8300000, guid: a80f0f586d42e4f1aac52141d2407a12, type: 3}
+  unpauseSound: {fileID: 8300000, guid: b0a5c1a2d23d9412a9f5e0c30d831239, type: 3}
+  jumpSound: {fileID: 8300000, guid: 2933be7f94be74f77900a4268c289f13, type: 3}
+  playerAttackSound: {fileID: 8300000, guid: f08b16cd6f1174091b04adaac04ef6d4, type: 3}
+  ratAttackSound: {fileID: 8300000, guid: 6c5abbc5ff303429993487130604f2c1, type: 3}
+  chickenAttackSound: {fileID: 8300000, guid: 65c709c9bd21040d3b1c1e35b8e60a47, type: 3}

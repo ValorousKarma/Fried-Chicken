@@ -34,8 +34,10 @@ public class PauseMenuController : MonoBehaviour
 
     public void Pause()
     {
+        
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
+        AudioManager.instance.OnGamePaused();
         isPaused = true;
     }
 
@@ -43,6 +45,7 @@ public class PauseMenuController : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
+        AudioManager.instance.OnGameResumed();
         isPaused = false;
     }
 
