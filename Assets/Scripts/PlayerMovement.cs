@@ -28,6 +28,8 @@ public class PlayerMovement : Attackable
     public Transform groundCheck;
     public float groundCheckRadius = 0.2f;
 
+
+
     private BoxCollider2D hitbox;
     private Rigidbody2D rb;
     private float moveInput;
@@ -44,12 +46,16 @@ public class PlayerMovement : Attackable
     private float attackBufferCounter = 0f;
     private float attackBufferTime = 0.1f;
 
+    private AudioSource audioSource;
+
     protected override void Start()
     {
         base.Start();
         facing = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         hitbox = GetComponentInChildren<BoxCollider2D>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected override void Update()
@@ -131,6 +137,13 @@ public class PlayerMovement : Attackable
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 isJumping = true;
                 jumpBufferCounter = 0f;  // Reset the buffer
+
+                if (AudioManager.instance != null)
+                {
+                     // Play jump sound
+                     AudioManager.instance.PlayJumpSound();
+                }
+    
 
                 /*
                  *  ===== IF DOUBLE JUMP UNLOCKED =====

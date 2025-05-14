@@ -17,11 +17,15 @@ public class Attack : Collidable
     public int attackDamage = 1;
     public float pushForce = 2.0f;
 
+
+
     void Start()
     {
         anim = this.GetComponent<Animator>();
         attackHitbox = transform.GetComponentInChildren<PolygonCollider2D>();
         attackHitbox.enabled = false;
+
+       
     }
 
     // Update is called once per frame
@@ -43,6 +47,11 @@ public class Attack : Collidable
             attackHitbox.enabled = true;
             lastHit = Time.time;
             anim.SetTrigger("attack");
+
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayPlayerAttackSound();
+        }
         }
     }
 

@@ -37,6 +37,7 @@ public class RatNPC : MoveableNPC
             {
                 attack.PerformAttack();
                 anim.SetTrigger("attack");
+                AudioManager.instance.PlayRatAttackSound(); 
                 lastHit = Time.time;
             }
         }
