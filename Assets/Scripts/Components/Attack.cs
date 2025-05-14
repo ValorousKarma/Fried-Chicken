@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Attack : Collidable
@@ -14,8 +15,9 @@ public class Attack : Collidable
     public float attackCooldown = 0.5f;
 
     [Header("Damage")]
-    public int attackDamage = 1;
-    public float pushForce = 2.0f;
+    public bool isPlayer = false;
+    public int[] attackDamage = new int[3];
+    public float[] pushForce = new float[3];
 
     void Start()
     {
@@ -49,31 +51,65 @@ public class Attack : Collidable
     protected override void OnCollide(Collider2D coll)
     {
         base.OnCollide(coll);
-        if (coll.tag == "Damageable")
+        if (!isPlayer)
         {
-            if (coll.name != excludeNameFromDamage)
+            if (coll.tag == "Damageable")
             {
-                Damage dmg = new Damage
+                if (coll.name != excludeNameFromDamage)
                 {
-                    dmg = attackDamage,
-                    origin = transform.position,
-                    pushForce = pushForce,
-                };
+                    Damage dmg = new Damage
+                    {
+                        dmg = attackDamage[0],
+                        origin = transform.position,
+                        pushForce = pushForce[0],
+                    };
 
-                coll.SendMessage("ReceiveDamage", dmg);
+                    coll.SendMessage("ReceiveDamage", dmg);
+                }
             }
-        } else if (coll.tag == "Player")
-        {
-            if (coll.name != excludeNameFromDamage)
+            else if (coll.tag == "Player")
             {
-                Damage dmg = new Damage
+                if (coll.name != excludeNameFromDamage)
                 {
-                    dmg = attackDamage,
-                    origin = transform.position,
-                    pushForce = pushForce,
-                };
+                    Damage dmg = new Damage
+                    {
+                        dmg = attackDamage[0],
+                        origin = transform.position,
+                        pushForce = pushForce[0],
+                    };
 
-                coll.GetComponentInParent<Attackable>().SendMessage("ReceiveDamage", dmg);
+                    coll.GetComponentInParent<Attackable>().SendMessage("ReceiveDamage", dmg);
+                }
+            }
+        } else
+        {
+            if (coll.tag == "Damageable")
+            {
+                if (coll.name != excludeNameFromDamage)
+                {
+                    Damage dmg = new Damage
+                    {
+                        dmg = attackDamage[GameState.Instance.weaponLevel],
+                        origin = transform.position,
+                        pushForce = pushForce[GameState.Instance.weaponLevel],
+                    };
+
+                    coll.SendMessage("ReceiveDamage", dmg);
+                }
+            }
+            else if (coll.tag == "Player")
+            {
+                if (coll.name != excludeNameFromDamage)
+                {
+                    Damage dmg = new Damage
+                    {
+                        dmg = attackDamage[GameState.Instance.weaponLevel],
+                        origin = transform.position,
+                        pushForce = pushForce[GameState.Instance.weaponLevel],
+                    };
+
+                    coll.GetComponentInParent<Attackable>().SendMessage("ReceiveDamage", dmg);
+                }
             }
         }
     }

@@ -6,15 +6,16 @@ using UnityEngine;
 
 public class StaticNPC : MonoBehaviour
 {
-    public string[] dialogueSeries;
-    private int currentDialogue;
+    protected string[][] dialogueSeries;
+    protected int currentLine;
+    protected int currentDialogue;
 
     private GameObject npc;
-    private GameObject dialogueBox;
-    private GameObject options;
+    protected GameObject dialogueBox;
+    protected GameObject options;
     private TextMeshProUGUI text;
 
-    private void Start()
+    protected virtual void Start()
     {
         // game object references for this dialogue NPC
         npc = this.gameObject;
@@ -37,11 +38,12 @@ public class StaticNPC : MonoBehaviour
 
         // no dialogue should be shown by default
         dialogueBox.SetActive(false);
+        dialogueSeries = new string[][] { };
     }
 
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         // handle player input if dialogue is active
         if (dialogueBox.activeSelf)
@@ -49,7 +51,7 @@ public class StaticNPC : MonoBehaviour
             if (Input.GetButtonDown("Interact"))
             {
                 // prevent ArrayOutOfBounds
-                if (currentDialogue + 1 < dialogueSeries.Length)
+                if (currentLine + 1 < dialogueSeries[currentDialogue].Length)
                 {
                     nextDialogue();
                 } else
@@ -74,25 +76,26 @@ public class StaticNPC : MonoBehaviour
         }
     }
 
-    protected virtual void startDialogue(int line = 0)
+    protected virtual void startDialogue(int dialogueSelection = 0, int line = 0)
     {
         // show dialogue box
         dialogueBox.SetActive(true);
         options.SetActive(false);
-        text.text = dialogueSeries[line];
-        currentDialogue = line;
+        text.text = dialogueSeries[dialogueSelection][line];
+        currentDialogue = dialogueSelection;
+        currentLine = line;
 
     }
 
     protected virtual void nextDialogue()
     {
         // increment dialogue index by one and display new dialogue
-        ++currentDialogue;
-        text.text = dialogueSeries[currentDialogue];
+        ++currentLine;
+        text.text = dialogueSeries[currentDialogue][currentLine];
 
     }
 
-    protected virtual void exitDialogue()
+    public virtual void exitDialogue()
     {
         dialogueBox.SetActive(false);
     }
@@ -110,25 +113,25 @@ public class StaticNPC : MonoBehaviour
     }
 
     // display a random line of dialogue
-    protected virtual void showRandomLine()
+    protected virtual void showRandomLine(int dialogueSelection = 0)
     {
 
         while (true) {
-            int nextDialogue = Random.Range(0, dialogueSeries.Length);
+            int nextLine = Random.Range(0, dialogueSeries[dialogueSelection].Length);
             
             // change displayed dialogue to new random line
-            if (nextDialogue == currentDialogue)
+            if (nextLine == currentLine)
             {
                 // make sure not to infinitely loop if not enough dialogue options
-                if (dialogueSeries.Length < 2)
+                if (dialogueSeries[dialogueSelection].Length < 2)
                 {
                     break;
                 }
                 // try again, generate another random dialogue option
             } else
             {
-                currentDialogue = nextDialogue;
-                text.text = dialogueSeries[currentDialogue];
+                currentLine = nextLine;
+                text.text = dialogueSeries[dialogueSelection][currentLine];
                 break;
             }
         }

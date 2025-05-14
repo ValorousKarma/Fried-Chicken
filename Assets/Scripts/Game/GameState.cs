@@ -17,6 +17,9 @@ public class GameState : MonoBehaviour
 
     // Logic
     public int currency;
+    public int weaponLevel;
+    public int[] upgradeCosts = new int[2] { 50, 100 };
+    public const int MAX_LEVEL = 2;
 
     /*
      * Unlocked character upgrades
@@ -62,6 +65,7 @@ public class GameState : MonoBehaviour
     public void SaveState()
     {
         PlayerPrefs.SetInt("currency", currency);
+        PlayerPrefs.SetInt("weaponLevel", weaponLevel);
         PlayerPrefs.SetInt("dash", dash ? 1 : 0);
         PlayerPrefs.SetInt("doubleJump", doubleJump ? 1 : 0);
         PlayerPrefs.SetString("sceneName", sceneName);
@@ -72,6 +76,7 @@ public class GameState : MonoBehaviour
     public void LoadState()
     {
         currency = PlayerPrefs.GetInt("currency", 0);
+        weaponLevel = PlayerPrefs.GetInt("weaponLevel", 0);
         dash = PlayerPrefs.GetInt("dash", 0) == 1;
         doubleJump = PlayerPrefs.GetInt("doubleJump", 0) == 1;
 
@@ -151,6 +156,23 @@ public class GameState : MonoBehaviour
     {
         currency += amt;
         PlayerPrefs.SetInt("currency", currency);
+    }
+
+    public bool UpgradeWeapon()
+    {
+        // only allow upgrade if won't surpass max level
+        if (weaponLevel < MAX_LEVEL)
+        {
+            // only allow upgrade if player has enough currency
+            if (currency >= upgradeCosts[weaponLevel])
+            {
+                currency -= upgradeCosts[weaponLevel];
+                weaponLevel++;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public string GetPreviousScene()
