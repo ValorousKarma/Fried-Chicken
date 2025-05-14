@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     [Header("Music Tracks")]
-    public AudioClip backgroundMusic;
+    public AudioClip[] backgroundMusic;
+    private AudioClip backgroundSong;
     public AudioClip winMusic;
     public AudioClip deathMusic;
 
@@ -28,6 +30,8 @@ public class AudioManager : MonoBehaviour
     
     private AudioSource musicSource;
     private AudioSource sfxSource;
+
+    private Dictionary<string, int> musicKeys = new Dictionary<string, int>();
 
     
     void Awake()
@@ -53,6 +57,15 @@ public class AudioManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // set scene names to be associated with background music array indexes
+        musicKeys.Add("StartScene", 0);
+        musicKeys.Add("Level_One_Forrest", 0);
+        musicKeys.Add("Level_Two_Town", 1);
+        musicKeys.Add("Level_Three_Cave", 2);
+
+        // default song to play if UpdateBackgroundMusic not called
+        backgroundSong = backgroundMusic[0];
     }
     void Start()
     {
@@ -62,7 +75,7 @@ public class AudioManager : MonoBehaviour
     // === Music Controls ===
     public void PlayBackgroundMusic()
     {
-        musicSource.clip = backgroundMusic;
+        musicSource.clip = backgroundSong;
         musicSource.Play();
     }
 
@@ -99,6 +112,12 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.UnPause();
         }
+    }
+
+    public void UpdateBackgroundMusic(string sceneName)
+    {
+        backgroundSong = backgroundMusic[musicKeys[sceneName]];
+        PlayBackgroundMusic();
     }
 
     // === Player Sounds ===

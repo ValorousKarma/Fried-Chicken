@@ -135,6 +135,7 @@ public class GameState : MonoBehaviour
             }
         }
 
+        AudioManager.instance.UpdateBackgroundMusic(scene.name);
         previousScene = "";
     }
 
