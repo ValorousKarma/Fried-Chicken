@@ -20,13 +20,12 @@ public class StartMenuController : MonoBehaviour
     public void onStartClick()
     {
         // reset save data
-        state.currency = 0;
-        state.weaponLevel = 0;
-        state.dash = false;
-        state.doubleJump = false;
-        state.sceneName = "";
-        state.savePointName = "";
-        state.SaveState();
+        PlayerPrefs.DeleteKey("currency");
+        PlayerPrefs.DeleteKey("weaponLevel");
+        PlayerPrefs.DeleteKey("dash");
+        PlayerPrefs.DeleteKey("doubleJump");
+        PlayerPrefs.DeleteKey("sceneName");
+        PlayerPrefs.DeleteKey("savePointName");
 
         // Load the game scene
         SceneManager.LoadScene("Level_One_Forrest");
@@ -56,7 +55,7 @@ public class StartMenuController : MonoBehaviour
         // then load the last saved game
         if (PlayerPrefs.HasKey("sceneName") && PlayerPrefs.HasKey("savePointName"))
         {
-            state.RespawnPlayer();
+            state.RespawnPlayer(false);
         }
         else
         {

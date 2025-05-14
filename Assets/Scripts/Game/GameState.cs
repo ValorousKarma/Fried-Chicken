@@ -32,11 +32,10 @@ public class GameState : MonoBehaviour
     /*
      * save respawn point (scene #, respawn point name)
      */
+    public string previousScene;
     public string sceneName;
     public string savePointName;
 
-    // remember what the last scene the player was in
-    private string previousSceneName;
     private Vector3 levelTwoSecondarySpawn = new Vector3(57, -1.5f, 0);
     private Vector3 levelOneSecondarySpawn = new Vector3(50, -0.45f, 0);
 
@@ -78,7 +77,7 @@ public class GameState : MonoBehaviour
         PlayerPrefs.SetInt("doubleJump", doubleJump ? 1 : 0);
         PlayerPrefs.SetString("sceneName", sceneName);
         PlayerPrefs.SetString("savePointName", savePointName);
-        previousSceneName = sceneName;
+        previousScene = SceneManager.GetActiveScene().name;
     }
 
     public void LoadState()
@@ -105,11 +104,12 @@ public class GameState : MonoBehaviour
 
             if (!goToSave)
             {
-                if (scene.name == "Level_Two_Town" && previousSceneName == "Level_Three_Cave")
+                if (scene.name == "Level_Two_Town" && previousScene == "Level_Three_Cave")
                     player.transform.position = levelTwoSecondarySpawn;
 
-                if (scene.name == "Level_One_Forrest" && previousSceneName == "Level_Two_Town")
+                if (scene.name == "Level_One_Forrest" && previousScene == "Level_Two_Town")
                     player.transform.position = levelOneSecondarySpawn;
+                Debug.Log(PlayerPrefs.GetString("previousSceneName"));
             }
             else
             {
@@ -135,12 +135,7 @@ public class GameState : MonoBehaviour
             }
         }
 
-        previousSceneName = "";
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveState();
+        previousScene = "";
     }
 
     public void RespawnPlayer(bool fromSavePoint = false)
@@ -220,10 +215,5 @@ public class GameState : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public string GetPreviousScene()
-    {
-        return previousSceneName;
     }
 }
