@@ -240,4 +240,11 @@ public class PlayerMovement : Attackable
 
         HealthBar.Instance.SetHealth((int) hitpoint);
     }
+
+    protected override void Death()
+    {
+        base.Death();
+        GameState.Instance.deathModifyCurrency();
+        GameState.Instance.RespawnPlayer();
+    }
 }

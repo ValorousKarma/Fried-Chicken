@@ -38,6 +38,12 @@ public class GameState : MonoBehaviour
     private Vector3 levelTwoSecondarySpawn = new Vector3(57, -1.5f, 0);
     private Vector3 levelOneSecondarySpawn = new Vector3(50, -0.45f, 0);
 
+
+    // temp value for respawn logic
+    private bool goToSave = false;
+    protected CanvasGroup respawnCanvas;
+    private bool showRespawnCanvasAfterLoad = false;
+
     /*
      *  Called when script is loaded
      */
@@ -95,25 +101,39 @@ public class GameState : MonoBehaviour
     {
         LoadState();
         player = GameObject.Find("Player").GetComponent<Player>();
-        // handle starting position for player based on where player enters level from
-        if (scene.name == "Level_Two_Town")
+
+        if (!goToSave)
         {
-            if (previousSceneName == "Level_Three_Cave")
-            {
+            if (scene.name == "Level_Two_Town" && previousSceneName == "Level_Three_Cave")
                 player.transform.position = levelTwoSecondarySpawn;
 
-            }
-        }
-
-        if (scene.name == "Level_One_Forrest")
-        {
-            if (previousSceneName == "Level_Two_Town")
-            {
+            if (scene.name == "Level_One_Forrest" && previousSceneName == "Level_Two_Town")
                 player.transform.position = levelOneSecondarySpawn;
+        }
+        else
+        {
+            goToSave = false;
+            player.transform.position = GameObject.Find(savePointName).transform.position - new Vector3(0, 2f, 0);
+        }
 
+        // Show and fade canvas AFTER scene is fully loaded
+        if (showRespawnCanvasAfterLoad)
+        {
+            showRespawnCanvasAfterLoad = false;
+
+            GameObject canvasObj = GameObject.Find("RespawnSetCanvas");
+            if (canvasObj != null)
+            {
+                respawnCanvas = canvasObj.GetComponent<CanvasGroup>();
+                if (respawnCanvas != null)
+                {
+                    respawnCanvas.alpha = 1f;
+                    StartCoroutine(FadeOut());
+                }
             }
         }
 
+        previousSceneName = "";
     }
 
     private void OnApplicationQuit()
@@ -121,10 +141,30 @@ public class GameState : MonoBehaviour
         SaveState();
     }
 
-    public void RespawnPlayer()
+    public void RespawnPlayer(bool fromSavePoint = false)
     {
+        goToSave = true;
+        if (fromSavePoint)
+            showRespawnCanvasAfterLoad = true;
         SceneManager.LoadScene(sceneName);
-        // After scene loads, place player at `savePointName` location
+
+        player.GetComponent<PlayerMovement>().hitpoint = player.GetComponent<PlayerMovement>().maxHitpoint;
+        HealthBar.Instance.SetHealth((int)player.GetComponent<PlayerMovement>().hitpoint);
+    }
+
+    private System.Collections.IEnumerator FadeOut()
+    {
+        float startAlpha = respawnCanvas.alpha;
+        float elapsed = 0f;
+
+        while (elapsed < 2f)
+        {
+            elapsed += Time.deltaTime;
+            respawnCanvas.alpha = Mathf.Lerp(startAlpha, 0f, elapsed / 2f);
+            yield return null;
+        }
+
+        respawnCanvas.alpha = 0f;
     }
 
 
@@ -155,6 +195,12 @@ public class GameState : MonoBehaviour
     public void AddCurrency(int amt)
     {
         currency += amt;
+        PlayerPrefs.SetInt("currency", currency);
+    }
+
+    public void deathModifyCurrency()
+    {
+        currency = currency / 2;
         PlayerPrefs.SetInt("currency", currency);
     }
 
