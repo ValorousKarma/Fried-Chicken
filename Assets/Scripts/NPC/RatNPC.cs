@@ -113,4 +113,10 @@ public class RatNPC : MoveableNPC
         Vector2 moveDir = (startingPosition - transform.position).normalized;
         UpdateMotor(moveDir);
     }
+
+    protected override void Death()
+    {
+        base.Death();
+        GameState.Instance.AddCurrency(rewards);
+    }
 }
