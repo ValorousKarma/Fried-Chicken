@@ -11,7 +11,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip winMusic;
     public AudioClip deathMusic;
 
-    public AudioClip pauseMusic;
+    [Header("UI Sounds")]
+    public AudioClip pauseSound;      // Single "pause" sound effect
+    public AudioClip unpauseSound;    // Single "unpause" sound effect
+
+    private bool wasMusicPlaying;
     
     [Header("Player Sounds")]
     public AudioClip jumpSound;
@@ -19,6 +23,8 @@ public class AudioManager : MonoBehaviour
 
     [Header("Enemy Sounds")]
     public AudioClip ratAttackSound; // Separate sound for Rat NPC
+    public AudioClip chickenAttackSound; // Separate sound for Chicken NPC
+   
     
     private AudioSource musicSource;
     private AudioSource sfxSource;
@@ -72,10 +78,27 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlayPauseMusic()
+    public void OnGamePaused()
     {
-        musicSource.clip = pauseMusic;
-        musicSource.Play();
+    // Pause background music (but remember its state)
+    wasMusicPlaying = musicSource.isPlaying;
+    musicSource.Pause();
+    
+    // Play single UI pause sound (non-looping)
+    sfxSource.PlayOneShot(pauseSound);
+    }
+
+// Call this when unpausing
+    public void OnGameResumed()
+    {
+        // Play UI unpause sound
+        sfxSource.PlayOneShot(unpauseSound);
+        
+        // Restore music if it was playing
+        if (wasMusicPlaying)
+        {
+            musicSource.UnPause();
+        }
     }
 
     // === Player Sounds ===
@@ -85,4 +108,6 @@ public class AudioManager : MonoBehaviour
 
     // === Enemy Sounds ===
     public void PlayRatAttackSound() => sfxSource.PlayOneShot(ratAttackSound);
+
+    public void PlayChickenAttackSound() => sfxSource.PlayOneShot(chickenAttackSound);
 }
