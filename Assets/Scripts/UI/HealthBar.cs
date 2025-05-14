@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
@@ -12,21 +13,20 @@ public class HealthBar : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (HealthBar.Instance != null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // keep it alive across scenes
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Destroy(gameObject); // prevent duplicates
-        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void SetMaxHealth(int health)
+    public void Start()
     {
-        slider.maxValue = health;
-        slider.value = health;
+        slider.maxValue = Player.Instance.GetComponent<PlayerMovement>().maxHitpoint;
+        slider.value = Player.Instance.GetComponent<PlayerMovement>().hitpoint;
 
         fill.color=gradient.Evaluate(1f);
     }

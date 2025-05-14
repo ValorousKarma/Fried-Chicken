@@ -233,4 +233,11 @@ public class PlayerMovement : Attackable
         isDashing = false;
         hitbox.tag = "Player";
     }
+
+    protected override void ReceiveDamage(Damage dmg)
+    {
+        base.ReceiveDamage(dmg);
+
+        HealthBar.Instance.SetHealth((int) hitpoint);
+    }
 }
