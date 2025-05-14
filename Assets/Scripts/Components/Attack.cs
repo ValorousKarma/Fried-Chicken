@@ -45,6 +45,10 @@ public class Attack : Collidable
             attackHitbox.enabled = true;
             lastHit = Time.time;
             anim.SetTrigger("attack");
+            if (AudioManager.instance != null)
+            {
+                AudioManager.instance.PlayPlayerAttackSound();
+            }
         }
     }
 
