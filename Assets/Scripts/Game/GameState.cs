@@ -12,6 +12,7 @@ public class GameState : MonoBehaviour
 
     public static GameState Instance;
 
+    public event System.Action<int> OnCurrencyChanged;
     // References
     public Player player;
 
@@ -196,12 +197,14 @@ public class GameState : MonoBehaviour
     {
         currency += amt;
         PlayerPrefs.SetInt("currency", currency);
+        OnCurrencyChanged?.Invoke(currency);
     }
 
     public void deathModifyCurrency()
     {
         currency = currency / 2;
         PlayerPrefs.SetInt("currency", currency);
+        OnCurrencyChanged?.Invoke(currency);
     }
 
     public bool UpgradeWeapon()
