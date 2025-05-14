@@ -10,8 +10,24 @@ public class StartMenuController : MonoBehaviour
     [SerializeField] private GameObject noSaveGameDialog; 
     [SerializeField] private GameObject settingsPanel
     ;
+
+    GameState state;
+
+    public void Start()
+    {
+        state = GameState.Instance;
+    }
     public void onStartClick()
     {
+        // reset save data
+        state.currency = 0;
+        state.weaponLevel = 0;
+        state.dash = false;
+        state.doubleJump = false;
+        state.sceneName = "";
+        state.savePointName = "";
+        state.SaveState();
+
         // Load the game scene
         SceneManager.LoadScene("Level_One_Forrest");
     }
@@ -38,10 +54,9 @@ public class StartMenuController : MonoBehaviour
         // Load the last saved game
         // need to use game stat file to make sure the game is saved
         // then load the last saved game
-        if (PlayerPrefs.HasKey("LastSavedGame"))
+        if (PlayerPrefs.HasKey("sceneName") && PlayerPrefs.HasKey("savePointName"))
         {
-            string lastSavedGame = PlayerPrefs.GetString("LastSavedGame");
-            SceneManager.LoadScene(lastSavedGame);
+            state.RespawnPlayer();
         }
         else
         {

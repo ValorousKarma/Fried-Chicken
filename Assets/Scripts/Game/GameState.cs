@@ -76,7 +76,7 @@ public class GameState : MonoBehaviour
         PlayerPrefs.SetInt("doubleJump", doubleJump ? 1 : 0);
         PlayerPrefs.SetString("sceneName", sceneName);
         PlayerPrefs.SetString("savePointName", savePointName);
-        PlayerPrefs.SetString("previousSceneName", SceneManager.GetActiveScene().name);
+        previousSceneName = sceneName;
     }
 
     public void LoadState()
@@ -89,9 +89,6 @@ public class GameState : MonoBehaviour
         // for saving respawn point
         sceneName = PlayerPrefs.GetString("sceneName", "StartScene");
         savePointName = PlayerPrefs.GetString("savePointName", "");
-
-        // for knowing what part of the scene to load player into
-        previousSceneName = PlayerPrefs.GetString("previousSceneName", "");
     }
 
     /*
@@ -100,35 +97,38 @@ public class GameState : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadState();
-        player = GameObject.Find("Player").GetComponent<Player>();
+        if (scene.name != "StartScene") 
+        { 
+            player = GameObject.Find("Player").GetComponent<Player>();
 
-        if (!goToSave)
-        {
-            if (scene.name == "Level_Two_Town" && previousSceneName == "Level_Three_Cave")
-                player.transform.position = levelTwoSecondarySpawn;
-
-            if (scene.name == "Level_One_Forrest" && previousSceneName == "Level_Two_Town")
-                player.transform.position = levelOneSecondarySpawn;
-        }
-        else
-        {
-            goToSave = false;
-            player.transform.position = GameObject.Find(savePointName).transform.position - new Vector3(0, 2f, 0);
-        }
-
-        // Show and fade canvas AFTER scene is fully loaded
-        if (showRespawnCanvasAfterLoad)
-        {
-            showRespawnCanvasAfterLoad = false;
-
-            GameObject canvasObj = GameObject.Find("RespawnSetCanvas");
-            if (canvasObj != null)
+            if (!goToSave)
             {
-                respawnCanvas = canvasObj.GetComponent<CanvasGroup>();
-                if (respawnCanvas != null)
+                if (scene.name == "Level_Two_Town" && previousSceneName == "Level_Three_Cave")
+                    player.transform.position = levelTwoSecondarySpawn;
+
+                if (scene.name == "Level_One_Forrest" && previousSceneName == "Level_Two_Town")
+                    player.transform.position = levelOneSecondarySpawn;
+            }
+            else
+            {
+                goToSave = false;
+                player.transform.position = GameObject.Find(savePointName).transform.position - new Vector3(0, 2f, 0);
+            }
+
+            // Show and fade canvas AFTER scene is fully loaded
+            if (showRespawnCanvasAfterLoad)
+            {
+                showRespawnCanvasAfterLoad = false;
+
+                GameObject canvasObj = GameObject.Find("RespawnSetCanvas");
+                if (canvasObj != null)
                 {
-                    respawnCanvas.alpha = 1f;
-                    StartCoroutine(FadeOut());
+                    respawnCanvas = canvasObj.GetComponent<CanvasGroup>();
+                    if (respawnCanvas != null)
+                    {
+                        respawnCanvas.alpha = 1f;
+                        StartCoroutine(FadeOut());
+                    }
                 }
             }
         }
