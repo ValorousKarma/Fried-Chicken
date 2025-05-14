@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 1037006818787005494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.69, y: 1.48, z: 0}
+  m_LocalPosition: {x: 42.48685, y: -24.94756, z: 0}
   m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1594016205
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1324253288, guid: 18553ca2c72f43248b03ac9ea5f3448b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -147,8 +147,8 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
+  m_UseAutoMass: 1
+  m_Mass: 0.9216
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5
@@ -234,11 +234,14 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   objCollider: {fileID: 8002246212837727550}
+  attackHitbox: {fileID: 0}
   ATTACK_LENGTH: 0.267
   excludeNameFromDamage: RatEnemy
   attackCooldown: 0.5
-  attackDamage: 1
-  pushForce: 2
+  isPlayer: 0
+  attackDamage: 01000000
+  pushForce:
+  - 2
 --- !u!95 &3296735865966375490
 Animator:
   serializedVersion: 5
@@ -331,7 +334,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1594016205
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
