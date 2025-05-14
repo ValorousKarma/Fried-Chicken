@@ -13,6 +13,7 @@ public class GameState : MonoBehaviour
     public static GameState Instance;
 
     public event System.Action<int> OnCurrencyChanged;
+    public event System.Action<int> OnWeaponLevelChanged;
     // References
     public Player player;
 
@@ -209,18 +210,14 @@ public class GameState : MonoBehaviour
 
     public bool UpgradeWeapon()
     {
-        // only allow upgrade if won't surpass max level
-        if (weaponLevel < MAX_LEVEL)
+        if (weaponLevel < MAX_LEVEL && currency >= upgradeCosts[weaponLevel])
         {
-            // only allow upgrade if player has enough currency
-            if (currency >= upgradeCosts[weaponLevel])
-            {
-                currency -= upgradeCosts[weaponLevel];
-                weaponLevel++;
-                return true;
-            }
+            currency -= upgradeCosts[weaponLevel];
+            weaponLevel++;
+            PlayerPrefs.SetInt("weaponLevel", weaponLevel);
+            OnWeaponLevelChanged?.Invoke(weaponLevel); // Trigger event
+            return true;
         }
-
         return false;
     }
 
