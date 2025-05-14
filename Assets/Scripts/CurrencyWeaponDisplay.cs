@@ -10,10 +10,10 @@ public class CurrencyWeaponDisplay : MonoBehaviour
     public TextMeshProUGUI weaponLevelText;
 
     public Image weaponLevelImage;  // Your weapon level graphic
-    public Color[] levelColors;
 
     private void Start()
     {
+        
         // Initialize displays
         UpdateCurrencyDisplay(GameState.Instance.currency);
         UpdateWeaponLevelDisplay(GameState.Instance.weaponLevel);
@@ -22,7 +22,7 @@ public class CurrencyWeaponDisplay : MonoBehaviour
         GameState.Instance.OnCurrencyChanged += UpdateCurrencyDisplay;
         GameState.Instance.OnWeaponLevelChanged += UpdateWeaponLevelDisplay;
 
-        weaponLevelImage.gameObject.SetActive(true);
+        
     }
 
     private void OnDestroy()
@@ -50,9 +50,21 @@ public class CurrencyWeaponDisplay : MonoBehaviour
         }
         
         // Update image color
-        if (weaponLevelImage != null && levelColors.Length > level)
-        {
-            weaponLevelImage.color = levelColors[level];
+
+        if (weaponLevelImage != null ){
+            if(level == 0)
+            {
+                weaponLevelImage.color =Color.white;
+            }
+            else if(level == 1)
+            {
+                weaponLevelImage.color = Color.cyan;
+            }
+            else if(level == 2)
+            {
+                weaponLevelImage.color = Color.blue;
+            }
+
         }
     }
 }

@@ -309,7 +309,6 @@ MonoBehaviour:
   levelColors:
   - {r: 0.07975432, g: 1, b: 0.0047169924, a: 0}
   - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0.16599704, g: 0.033018887, b: 1, a: 0}
 --- !u!1 &3497469870929709901
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,10 +950,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0.46520042, g: 0, b: 1, a: 1}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
