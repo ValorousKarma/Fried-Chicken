@@ -32,7 +32,8 @@ public class GameState : MonoBehaviour
     /*
      * save respawn point (scene #, respawn point name)
      */
-    public string previousScene;
+    private string previousScene;
+    private float playerHealth = 10;
     public string sceneName;
     public string savePointName;
 
@@ -78,6 +79,10 @@ public class GameState : MonoBehaviour
         PlayerPrefs.SetString("sceneName", sceneName);
         PlayerPrefs.SetString("savePointName", savePointName);
         previousScene = SceneManager.GetActiveScene().name;
+        if (previousScene != "StartScene")
+        {
+            playerHealth = player.GetComponent<PlayerMovement>().hitpoint;
+        }
     }
 
     public void LoadState()
@@ -111,6 +116,9 @@ public class GameState : MonoBehaviour
                     player.transform.position = levelOneSecondarySpawn;
                 Debug.Log(PlayerPrefs.GetString("previousSceneName"));
 
+                // make sure player health doesn't reset when changing levels
+                if (previousScene != "StartScene")
+                    player.GetComponent<PlayerMovement>().hitpoint = playerHealth;
             }
             else
             {
@@ -138,6 +146,7 @@ public class GameState : MonoBehaviour
 
         AudioManager.instance.UpdateBackgroundMusic(scene.name);
         previousScene = "";
+        playerHealth = player.GetComponent<PlayerMovement>().maxHitpoint;
     }
 
     public void RespawnPlayer(bool fromSavePoint = false)
@@ -211,6 +220,7 @@ public class GameState : MonoBehaviour
         {
             currency -= upgradeCosts[weaponLevel];
             weaponLevel++;
+            PlayerPrefs.SetInt("currency", currency);
             PlayerPrefs.SetInt("weaponLevel", weaponLevel);
             OnCurrencyChanged?.Invoke(currency);
             OnWeaponLevelChanged?.Invoke(weaponLevel); // Trigger event
