@@ -32,7 +32,8 @@ public class GameState : MonoBehaviour
     /*
      * save respawn point (scene #, respawn point name)
      */
-    public string previousScene;
+    private string previousScene;
+    private float playerHealth = 10;
     public string sceneName;
     public string savePointName;
 
@@ -78,6 +79,10 @@ public class GameState : MonoBehaviour
         PlayerPrefs.SetString("sceneName", sceneName);
         PlayerPrefs.SetString("savePointName", savePointName);
         previousScene = SceneManager.GetActiveScene().name;
+        if (previousScene != "StartScene")
+        {
+            playerHealth = player.GetComponent<PlayerMovement>().hitpoint;
+        }
     }
 
     public void LoadState()
@@ -110,6 +115,10 @@ public class GameState : MonoBehaviour
                 if (scene.name == "Level_One_Forrest" && previousScene == "Level_Two_Town")
                     player.transform.position = levelOneSecondarySpawn;
                 Debug.Log(PlayerPrefs.GetString("previousSceneName"));
+
+                // make sure player health doesn't reset when changing levels
+                if (previousScene != "StartScene")
+                    player.GetComponent<PlayerMovement>().hitpoint = playerHealth;
             }
             else
             {
@@ -137,6 +146,7 @@ public class GameState : MonoBehaviour
 
         AudioManager.instance.UpdateBackgroundMusic(scene.name);
         previousScene = "";
+        playerHealth = player.GetComponent<PlayerMovement>().maxHitpoint;
     }
 
     public void RespawnPlayer(bool fromSavePoint = false)
