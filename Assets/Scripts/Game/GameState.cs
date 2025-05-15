@@ -210,6 +210,7 @@ public class GameState : MonoBehaviour
         {
             currency -= upgradeCosts[weaponLevel];
             weaponLevel++;
+            PlayerPrefs.SetInt("currency", currency);
             PlayerPrefs.SetInt("weaponLevel", weaponLevel);
             OnCurrencyChanged?.Invoke(currency);
             OnWeaponLevelChanged?.Invoke(weaponLevel); // Trigger event
