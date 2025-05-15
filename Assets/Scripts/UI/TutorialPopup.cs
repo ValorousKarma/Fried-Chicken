@@ -6,7 +6,11 @@ public class TutorialPopup : MonoBehaviour
 {
 
     public GameObject panel;
-    // Start is called before the first frame update
+
+    private void Start()
+    {
+        Time.timeScale = 0f;
+    }
 
     // Update is called once per frame
     void Update()
@@ -14,6 +18,7 @@ public class TutorialPopup : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             panel.SetActive(false);
+            Time.timeScale = 1f;
         }
     }
 }

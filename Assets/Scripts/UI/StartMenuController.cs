@@ -28,6 +28,7 @@ public class StartMenuController : MonoBehaviour
         PlayerPrefs.DeleteKey("savePointName");
 
         // Load the game scene
+        GameState.Instance.SetNewGame(true);
         SceneManager.LoadScene("Level_One_Forrest");
     }
     public void onQuitClick()

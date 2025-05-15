@@ -46,6 +46,9 @@ public class GameState : MonoBehaviour
     protected CanvasGroup respawnCanvas;
     private bool showRespawnCanvasAfterLoad = false;
 
+    // set by main menu to display tutorial popup on first scene load
+    private bool NewGame = false;
+
     /*
      *  Called when script is loaded
      */
@@ -227,5 +230,15 @@ public class GameState : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void SetNewGame(bool setting)
+    {
+        NewGame = setting;
+    }
+
+    public bool GetNewGame()
+    {
+        return NewGame;
     }
 }
