@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject pauseMenuUI;
+
+    private SceneManager sceneManager;
 
     private static PauseMenuController instance;
 
@@ -56,7 +59,7 @@ public class PauseMenuController : MonoBehaviour
 
     public void SaveGame()
     {
-        Debug.Log("Game Saved");
+       SceneManager.LoadScene("StartScene");
     }
 
     public void QuitGame()
