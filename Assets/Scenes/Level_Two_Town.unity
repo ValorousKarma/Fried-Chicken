@@ -795,7 +795,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 655012949}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1001515348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1211,10 +1211,10 @@ RectTransform:
   - {fileID: 1387705358}
   m_Father: {fileID: 489473847}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -792.62, y: -412.71}
-  m_SizeDelta: {x: -1585.2435, y: -825.4165}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1000, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &655012950
 MonoBehaviour:
@@ -1582,9 +1582,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3719647622287050546, guid: 0031655f9cfc6fe44bf2e7cdf4433060, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 489473847}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0031655f9cfc6fe44bf2e7cdf4433060, type: 3}
+--- !u!4 &1001515348 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3719647622287050546, guid: 0031655f9cfc6fe44bf2e7cdf4433060, type: 3}
+  m_PrefabInstance: {fileID: 1001515347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1112299759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,7 +1840,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.000030517, y: 24}
-  m_SizeDelta: {x: 235.3486, y: 71.373}
+  m_SizeDelta: {x: 750, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1387705359
 MonoBehaviour:
@@ -1883,8 +1891,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 90
+  m_fontSizeBase: 90
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -30712,4 +30720,3 @@ SceneRoots:
   - {fileID: 192932391}
   - {fileID: 1373469939}
   - {fileID: 767465247}
-  - {fileID: 489473847}
