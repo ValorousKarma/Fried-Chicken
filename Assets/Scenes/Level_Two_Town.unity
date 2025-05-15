@@ -1074,6 +1074,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: RatEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4917777907824493003, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.951317
@@ -1113,6 +1129,10 @@ PrefabInstance:
     - target: {fileID: 4917777907824493003, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640845831286691616, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: rewards
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1640,6 +1660,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: RatEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2722989002168885004, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: attackDamage.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4917777907824493003, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
       propertyPath: m_LocalPosition.x
       value: 62.89978
@@ -1679,6 +1715,10 @@ PrefabInstance:
     - target: {fileID: 4917777907824493003, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8640845831286691616, guid: e84c6f7b1e0acb84a98d4708b4149588, type: 3}
+      propertyPath: rewards
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
