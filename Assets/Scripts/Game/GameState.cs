@@ -98,8 +98,8 @@ public class GameState : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadState();
-        if (scene.name != "StartScene") 
-        { 
+        if (scene.name != "StartScene")
+        {
             player = GameObject.Find("Player").GetComponent<Player>();
 
             if (!goToSave)
@@ -110,6 +110,7 @@ public class GameState : MonoBehaviour
                 if (scene.name == "Level_One_Forrest" && previousScene == "Level_Two_Town")
                     player.transform.position = levelOneSecondarySpawn;
                 Debug.Log(PlayerPrefs.GetString("previousSceneName"));
+
             }
             else
             {
