@@ -81,6 +81,8 @@ public abstract class MoveableNPC : Moveable
         else if (playerDistance > playerAttackRange && state.attacking)
         {
             state.attacking = false;
+
+            anim.ResetTrigger("attack");
         }
     }
     /*
